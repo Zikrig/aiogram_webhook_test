@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from os import getenv
 
 from aiogram import Bot, Dispatcher, types
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message, Update
@@ -15,12 +16,13 @@ from fastapi import FastAPI
 # load_dotenv()
 
 TOKEN = getenv("BOT_TOKEN")
+WEBHOOK_HOST = getenv("WEBHOOK_URL")
 WEBHOOK_PATH = f"/bot/{TOKEN}"
-WEBHOOK_URL = getenv("WEBHOOK_URL") + WEBHOOK_PATH
+WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 # All handlers should be attached to the Router (or Dispatcher)
 dp = Dispatcher()
-bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 
 @dp.message(CommandStart())
