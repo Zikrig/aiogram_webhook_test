@@ -15,13 +15,13 @@ import uvicorn
 # from dotenv import load_dotenv
 # load_dotenv()
 
-TOKEN = getenv("BOT_TOKEN")
+TOKEN = getenv("TELEGRAM_BOT_TOKEN")
 WEBHOOK_PATH = f"/bot/{TOKEN}"
 WEBHOOK_URL = getenv("WEBHOOK_URL") + WEBHOOK_PATH
 
 # All handlers should be attached to the Router (or Dispatcher)
 dp = Dispatcher()
-bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+bot = Bot(TOKEN)
 
 
 @dp.message(CommandStart())
